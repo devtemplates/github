@@ -1,0 +1,25 @@
+name: call_renovate
+on:
+  workflow_call:
+    secrets:
+    RENOVATE_TOKEN:
+      description: "Renovate token"
+      required: true
+jobs:
+  renovate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3.6.0
+      - name: Self-hosted Renovate
+        uses: renovatebot/github-action@v39.1.3
+        with:
+          configurationFile: .github/renovate.json5
+          token: ${{ secrets.RENOVATE_TOKEN }}
+        env:
+          # Repository taken from variable to keep configuration file generic
+          RENOVATE_REPOSITORIES: ${{ github.repository }}
+          # Onboarding not needed for self hosted
+          RENOVATE_ONBOARDING: "false"
+          # DEBUG
+          # LOG_LEVEL: "debug"
