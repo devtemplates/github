@@ -1,4 +1,4 @@
 {
-  "workflows/renovate": "0.0.0",
-  "workflows/test": "0.0.0"
+  "workflows/renovate": "1.0.0",
+  "workflows/test": "1.0.0"
 }
