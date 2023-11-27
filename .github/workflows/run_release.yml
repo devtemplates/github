@@ -16,3 +16,6 @@ jobs:
           release-type: simple
           command: manifest
           monorepo-tags: true
+      - name: tag major and minor versions
+        if: ${{ steps.release.outputs.releases_created }}
+        run: echo $GITHUB_OUTPUT
