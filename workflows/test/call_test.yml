@@ -1,0 +1,32 @@
+# NOTE: This will be retrofitted to support nix and multiple languages based on
+# arguments and repo structure. For now, it is being hardcoded to use nodejs.
+name: call_test
+on:
+  workflow_call:
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: ["18.x", "20.x"]
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
+      - name: Install dependencies
+        run: ./scripts/install.sh
+      - name: Run tests
+        run: /scripts/test.sh
+  # NOTE: This allows us to add branch protection checking `test-results` status
+  # rather than having to explicitly define each test matrix job.
+  # https://github.com/orgs/community/discussions/26822#discussioncomment-5122101
+  report:
+    if: ${{ always() }}
+    runs-on: ubuntu-latest
+    needs: [run]
+    steps:
+      - run: exit 1
+        if: ${{contains(needs.*.result, 'failure') || contains(needs.*.result, 'cancelled')}}
