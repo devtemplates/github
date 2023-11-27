@@ -1,0 +1,30 @@
+name: release
+on:
+  push:
+    branches:
+      - main
+jobs:
+  release-please:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+    steps:
+      - name: Release
+        uses: google-github-actions/release-please-action@v3
+        id: release
+        with:
+          release-type: simple
+          command: manifest
+          monorepo-tags: true
+      - name: Checkout
+        uses: actions/checkout@v3.6.0
+      - name: Push major/minor tags
+        if: ${{ steps.release.outputs.release_created }}
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const script = require('./.github/scripts/tag-major-minor.js')
+            await script({github, context, core})
+        env:
+          RELEASE_OUTPUTS: ${{ toJson(steps.release.outputs) }}
