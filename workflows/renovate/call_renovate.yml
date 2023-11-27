@@ -22,4 +22,4 @@ jobs:
           # Onboarding not needed for self hosted
           RENOVATE_ONBOARDING: "false"
           # DEBUG
-          LOG_LEVEL: "info"
+          LOG_LEVEL: "debug"
