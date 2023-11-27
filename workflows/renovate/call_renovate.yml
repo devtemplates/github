@@ -2,9 +2,9 @@ name: call_renovate
 on:
   workflow_call:
     secrets:
-    RENOVATE_TOKEN:
-      description: "Renovate token"
-      required: true
+      RENOVATE_TOKEN:
+        description: "Renovate token"
+        required: true
 jobs:
   renovate:
     runs-on: ubuntu-latest
@@ -22,4 +22,4 @@ jobs:
           # Onboarding not needed for self hosted
           RENOVATE_ONBOARDING: "false"
           # DEBUG
-          # LOG_LEVEL: "debug"
+          LOG_LEVEL: "info"
