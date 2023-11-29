@@ -1,5 +1,12 @@
 # Changelog
 
+## 1.0.0 (2023-11-29)
+
+
+### Features
+
+* initial commit ([46e6833](https://github.com/devtemplates/github/commit/46e6833a2f5cb01cf0307e106ead81b9c0a42e82))
+
 ## 1.0.0 (2023-11-27)
 
 
